@@ -95,9 +95,10 @@ void mostrartablanewton(double calculos[][2],int n, int cifras_significativas)
         }
         case 14:
         {
+            printf("it\txi\t\t\t\tfxi\n");
             for(i = 0; i < n; i++)
             {
-                printf("%d\t%-8.14g\t\t%-8.14g\n",i,calculos[i][0],calculos[i][1]);
+                printf("%d\t%-16.14g\t\t%-16.14g\n",i,calculos[i][0],calculos[i][1]);
             }
             break;
         }
@@ -107,6 +108,48 @@ void mostrartablanewton(double calculos[][2],int n, int cifras_significativas)
             for(i = 0; i < n; i++)
             {
                 printf("%d\t%-8.10g\t\t%-8.10g\n",i,calculos[i][0],calculos[i][1]);
+            }
+            break;
+        }
+    }
+}
+
+void guardarmegatablanewton(double totalcalculos[][13],int n, int cifras_significativas,char nombre[])
+{
+    int i;
+    FILE* archivo = fopen(nombre, "w+");
+    switch(cifras_significativas)
+    {
+        case 13:
+        {
+            fprintf(archivo,"it\t\tBxi\t\t\t\t\t\t\t  Bfxi\t\t\t\t\t\t\tBdiff\t\t\t\t\t\t  Gxi\t\t\t\t\t\t\tGfxi\t\t\t\t\t\t  Gdiff\t\t\t\t\t\t\tAxi\t\t\t\t\t\t\t  Afxi\t\t\t\t\t\t\tAdiff\t\t\t\t\t\t  bxi\t\t\t\t\t\t\tbfxi\t\t\t\t\t\t  bdiff\n");
+            for(i = 0; i < n; i++)
+            {
+                fprintf(archivo,"%d\t\t%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g%-30.13g\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
+                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
+                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+            }
+            break;
+        }
+        case 14:
+        {
+            fprintf(archivo,"it\t\tBxi\t\t\t\t\t\t\t  Bfxi\t\t\t\t\t\t\tBdiff\t\t\t\t\t\t  Gxi\t\t\t\t\t\t\tGfxi\t\t\t\t\t\t  Gdiff\t\t\t\t\t\t\tAxi\t\t\t\t\t\t\t  Afxi\t\t\t\t\t\t\tAdiff\t\t\t\t\t\t  bxi\t\t\t\t\t\t\tbfxi\t\t\t\t\t\t  bdiff\n");
+            for(i = 0; i < n; i++)
+            {
+                fprintf(archivo,"%d\t\t%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g%-30.14g\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
+                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
+                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+            }
+            break;
+        }
+        default:
+        {
+            fprintf(archivo,"it\t\tBxi\t\t\t\t\t\t\t  Bfxi\t\t\t\t\t\t\tBdiff\t\t\t\t\t\t  Gxi\t\t\t\t\t\t\tGfxi\t\t\t\t\t\t  Gdiff\t\t\t\t\t\t\tAxi\t\t\t\t\t\t\t  Afxi\t\t\t\t\t\t\tAdiff\t\t\t\t\t\t  bxi\t\t\t\t\t\t\tbfxi\t\t\t\t\t\t  bdiff\n");
+            for(i = 0; i < n; i++)
+            {
+                fprintf(archivo,"%d\t\t%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g%-30.10g\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
+                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
+                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
             }
             break;
         }
@@ -149,6 +192,63 @@ void guardartablanewtonlatex(double calculos[][2],int n, int cifras_significativ
             break;
         }
     }
+    fprintf(archivo,"\\end{tabular}\n");
+    fprintf(archivo,"\\end{center}\n");
+    fclose(archivo);
+}
+
+void guardarmegatablanewtonlatex(double totalcalculos[][13],int n, int cifras_significativas,char nombre[])
+{
+int i;
+    FILE* archivo = fopen(nombre, "w+");
+
+    fprintf(archivo, "\\begin{center}\n");
+    fprintf(archivo,"\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\n");
+    fprintf(archivo,"\\hline\n");
+    fprintf(archivo,"&  \\multicolumn{9}{|c|}{Condición Inicial}\\\\\n");
+    fprintf(archivo,"\\hline\n");
+    fprintf(archivo, "& \\multicolumn{3}{|c|}{$\\beta_i$} & \\multicolumn{2}{|c|}{$\\gamma_i$} & \\multicolumn{2}{|c|}{$\\alpha_i$} & \\multicolumn{2}{|c|}{$b_i$}\\\\");
+    fprintf(archivo,"\\hline\n");
+    fprintf(archivo,"Iteración & $x_k$ & $f_k$ & $|x_{k+1}-x_k|$ & $x_k$ & $\\ldots$ & $x_k$ & $\\ldots$ & $x_k$ & $\\ldots$ \\\\");
+
+    switch(cifras_significativas)
+    {
+        case 13:
+        {
+            for(i = 0; i < n; i++)
+            {
+                fprintf(archivo,"\\hline\n");
+                fprintf(archivo,"%d & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g\\\\\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
+                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
+                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+            }
+            break;
+        }
+        case 14:
+        {
+            for(i = 0; i < n; i++)
+            {
+                fprintf(archivo,"\\hline\n");
+                fprintf(archivo,"%d & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g\\\\\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
+                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
+                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+            }
+            break;
+        }
+        default:
+        {
+            for(i = 0; i < n; i++)
+            {
+                fprintf(archivo,"\\hline\n");
+                fprintf(archivo,"%d & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g\\\\\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
+                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
+                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+            }
+            break;
+        }
+    }
+
+    fprintf(archivo,"\\hline\n");
     fprintf(archivo,"\\end{tabular}\n");
     fprintf(archivo,"\\end{center}\n");
     fclose(archivo);
