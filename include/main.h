@@ -11,3 +11,15 @@
 #define FUNCIONDIFICIL 6
 
 #define EXACTAFUNCIONDIFICIL 7
+
+#define MAXIT64 64
+
+#define ALPHA1 -0.75
+#define ALPHA2 1.75
+#define ALPHA3 3.15
+
+#define OBJETIVO 0.0001
+
+#define EPSILON1 0.1
+#define EPSILON2 0.01
+#define EPSILON3 0.0001

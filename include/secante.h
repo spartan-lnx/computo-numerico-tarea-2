@@ -1,4 +1,6 @@
 #include "main.h"
 
-void metodosecante(char nombre[],double x0,double x1, double objetivo);
-void guardartablasecantelatex(FILE* archivo,int i, double x1,double x0, double fx);
+int metodosecante(double x0,double x1, double objetivo, double calculos [][3],int maxit);
+void actualizartablasecante(double calculos[][3],int i, double x1, double x0, double fx1);
+void mostrartablasecante(double calculos[][3],int n,int cifras_significativas);
+void guardartablasecantelatex(double calculos[][3],int n,int cifras_significativas, char nombre[]);
