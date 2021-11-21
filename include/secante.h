@@ -4,3 +4,5 @@ int metodosecante(double x0,double x1, double objetivo, double calculos [][3],in
 void actualizartablasecante(double calculos[][3],int i, double x1, double x0, double fx1);
 void mostrartablasecante(double calculos[][3],int n,int cifras_significativas);
 void guardartablasecantelatex(double calculos[][3],int n,int cifras_significativas, char nombre[]);
+void guardarmegatablasecante(double calculos[][16], int n, int cifras_significativas, char nombre[]);
+void guardarmegatablasecantelatex(double totalcalculos[][16], int n, int cifras_significativas, char nombre[]);

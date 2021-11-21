@@ -12,7 +12,8 @@ void playgroundbiseccion(void);
 void playgroundpuntofijo(void);
 void playgroundsecante(void);
 void playgroundnewton(void);
-void metodonewtonejercicio3b(void);
+void playgroundnewton3b(void);
+void playgroundsecante3b(void);
 
 
 int main(void)
@@ -21,7 +22,8 @@ int main(void)
     //playgroundpuntofijo();   
     //playgroundsecante();
     //playgroundnewton();
-    metodonewtonejercicio3b();
+    playgroundnewton3b();
+    //playgroundsecante3b();
     return 0;
 }
 
@@ -67,12 +69,12 @@ void playgroundnewton(void)
     guardartablanewtonlatex(calculos, n, 13, "pruebanewton.txt");
 }
 
-void metodonewtonejercicio3b(void)
+void playgroundnewton3b(void)
 {
     int variante = EXACTAFUNCIONDIFICIL;
     int maxit = MAXIT64;
     double objetivo = OBJETIVO;
-    int i,j,nbeta,ngamma,nalpha,nb,raices;
+    int i,j,nbeta,ngamma,nalpha,nb;
 
     double beta[5] = {-3,-2,-2,-1,1},gamma[5] = {-2,-1,-1,0,2};
     double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.76},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
@@ -159,4 +161,100 @@ void metodonewtonejercicio3b(void)
         strcpy(nombretablalatex, "");
         strcpy(buffer, "");
     }
+}
+
+void playgroundsecante3b(void)
+{
+    int maxit = MAXIT64;
+    double objetivo = OBJETIVO;
+    int i,j,nbetagamma,nbetaalpha,nalphagamma,nbetab,nbgamma;
+
+    double beta[5] = {-3,-2,-2,-1,1},gamma[5] = {-2,-1,-1,0,2};
+    double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.76},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
+
+    double calculosraiz_prueba[maxit][16];
+    double calculosbetagamma[maxit][3],calculosbetaalpha[maxit][3],calculosalphagamma[maxit][3];
+    double calculosbetab[maxit][3],calculosbgamma[maxit][3];
+
+    nbetagamma = metodosecante(beta[0], gamma[0], objetivo, calculosbetagamma, maxit);
+    nbetaalpha = metodosecante(beta[0], alpha[0], objetivo, calculosbetaalpha, maxit);
+    nalphagamma = metodosecante(alpha[0], gamma[0], objetivo, calculosalphagamma, maxit);
+    nbetab = metodosecante(beta[0], b[0], objetivo, calculosbetab, maxit);
+    nbgamma = metodosecante(b[0], gamma[0], objetivo, calculosbgamma, maxit);
+
+    for(i=0;i<nbetagamma;i++)
+    {
+        calculosraiz_prueba[i][0] = i;
+        calculosraiz_prueba[i][1] = calculosbetagamma[i][0];
+        calculosraiz_prueba[i][2] = calculosbetagamma[i][1];
+        calculosraiz_prueba[i][3] = calculosbetagamma[i][2];
+    }
+
+    if(i < maxit)
+    {
+        rellenarcerostablasecante(calculosraiz_prueba,i,maxit,1,2,3);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    for(i=0;i<nbetaalpha;i++)
+    {
+        calculosraiz_prueba[i][0] = i;
+        calculosraiz_prueba[i][4] = calculosbetaalpha[i][0];
+        calculosraiz_prueba[i][5] = calculosbetaalpha[i][1];
+        calculosraiz_prueba[i][6] = calculosbetaalpha[i][2];
+    }
+
+    if(i < maxit)
+    {
+        rellenarcerostablasecante(calculosraiz_prueba,i,maxit,4,5,6);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    for(i=0;i<nalphagamma;i++)
+    {
+        calculosraiz_prueba[i][0] = i;
+        calculosraiz_prueba[i][7] = calculosalphagamma[i][0];
+        calculosraiz_prueba[i][8] = calculosalphagamma[i][1];
+        calculosraiz_prueba[i][9] = calculosalphagamma[i][2];
+    }
+
+    if(i < maxit)
+    {
+        rellenarcerostablasecante(calculosraiz_prueba,i,maxit,7,8,9);
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////
+
+    for(i=0;i<nbetab;i++)
+    {
+        calculosraiz_prueba[i][0] = i;
+        calculosraiz_prueba[i][10] = calculosbetab[i][0];
+        calculosraiz_prueba[i][11] = calculosbetab[i][1];
+        calculosraiz_prueba[i][12] = calculosbetab[i][2];
+    }
+
+    if(i < maxit)
+    {
+        rellenarcerostablasecante(calculosraiz_prueba,i,maxit,10,11,12);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    for(i=0;i<nbgamma;i++)
+    {
+        calculosraiz_prueba[i][0] = i;
+        calculosraiz_prueba[i][13] = calculosbgamma[i][0];
+        calculosraiz_prueba[i][14] = calculosbgamma[i][1];
+        calculosraiz_prueba[i][15] = calculosbgamma[i][2];
+    }
+
+    if(i < maxit)
+    {
+        rellenarcerostablasecante(calculosraiz_prueba,i,maxit,13,14,15);
+    }
+
+    guardarmegatablasecante(calculosraiz_prueba, maxit, 14, "pruebamegatablasecante.txt");
+    guardarmegatablasecantelatex(calculosraiz_prueba, maxit, 14, "pruebamegatablasecantelatex.txt");
 }

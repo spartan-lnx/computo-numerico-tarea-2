@@ -201,15 +201,17 @@ void guardarmegatablanewtonlatex(double totalcalculos[][13],int n, int cifras_si
 {
 int i;
     FILE* archivo = fopen(nombre, "w+");
-
+    fprintf(archivo, "\\newgeometry{left=2 mm,top=2 mm,right=2 mm, bottom= 2 mm}\n");
+    fprintf(archivo, "\\begin{sidewaysfigure}\n");
+    fprintf(archivo, "\\small\n");
     fprintf(archivo, "\\begin{center}\n");
     fprintf(archivo,"\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\n");
     fprintf(archivo,"\\hline\n");
-    fprintf(archivo,"&  \\multicolumn{9}{|c|}{Condición Inicial}\\\\\n");
+    fprintf(archivo,"&  \\multicolumn{12}{|c|}{Condición Inicial}\\\\\n");
     fprintf(archivo,"\\hline\n");
-    fprintf(archivo, "& \\multicolumn{3}{|c|}{$\\beta_i$} & \\multicolumn{2}{|c|}{$\\gamma_i$} & \\multicolumn{2}{|c|}{$\\alpha_i$} & \\multicolumn{2}{|c|}{$b_i$}\\\\");
+    fprintf(archivo, "& \\multicolumn{3}{|c|}{$\\beta_i$} & \\multicolumn{3}{|c|}{$\\gamma_i$} & \\multicolumn{3}{|c|}{$\\alpha_i$} & \\multicolumn{3}{|c|}{$b_i$}\\\\\n");
     fprintf(archivo,"\\hline\n");
-    fprintf(archivo,"Iteración & $x_k$ & $f_k$ & $|x_{k+1}-x_k|$ & $x_k$ & $\\ldots$ & $x_k$ & $\\ldots$ & $x_k$ & $\\ldots$ \\\\");
+    fprintf(archivo,"Iteración & $x_k$ & $f_k$ & $|x_{k+1}-x_k|$ & $x_k$ & $f_k$ & $|x_{k+1}-x_k|$ & $x_k$ & $f_k$ & $|x_{k+1}-x_k|$ & $x_k$ & $f_k$ & $|x_{k+1}-x_k|$\\\\\n");
 
     switch(cifras_significativas)
     {
@@ -247,9 +249,11 @@ int i;
             break;
         }
     }
-
     fprintf(archivo,"\\hline\n");
     fprintf(archivo,"\\end{tabular}\n");
     fprintf(archivo,"\\end{center}\n");
+    fprintf(archivo,"\\end{sidewaysfigure}\n");
+    fprintf(archivo,"\\clearpage\n");
+    fprintf(archivo,"\\restoregeometry\n");
     fclose(archivo);
 }
