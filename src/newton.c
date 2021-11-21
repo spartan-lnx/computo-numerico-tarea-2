@@ -199,7 +199,8 @@ void guardartablanewtonlatex(double calculos[][2],int n, int cifras_significativ
 
 void guardarmegatablanewtonlatex(double totalcalculos[][13],int n, int cifras_significativas,char nombre[])
 {
-int i;
+    int i,j;
+    char buffer[30];
     FILE* archivo = fopen(nombre, "w+");
     fprintf(archivo, "\\newgeometry{left=2 mm,top=2 mm,right=2 mm, bottom= 2 mm}\n");
     fprintf(archivo, "\\begin{sidewaysfigure}\n");
@@ -220,9 +221,21 @@ int i;
             for(i = 0; i < n; i++)
             {
                 fprintf(archivo,"\\hline\n");
-                fprintf(archivo,"%d & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g & %.13g\\\\\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
-                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
-                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+                fprintf(archivo,"%d",i);
+                for(j=1;j<=12;j++)
+                {
+
+                    if(totalcalculos[i][j] != 0)
+                    {
+                        sprintf(buffer, "%.13g",totalcalculos[i][j]);
+                        fprintf(archivo," & %s",buffer);
+                    }
+                    else
+                    {
+                        fprintf(archivo," &");
+                    }
+                }
+                fprintf(archivo, "\\\\\n");
             }
             break;
         }
@@ -231,9 +244,21 @@ int i;
             for(i = 0; i < n; i++)
             {
                 fprintf(archivo,"\\hline\n");
-                fprintf(archivo,"%d & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g & %.14g\\\\\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
-                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
-                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+                fprintf(archivo,"%d",i);
+                for(j=1;j<=12;j++)
+                {
+
+                    if(totalcalculos[i][j] != 0)
+                    {
+                        sprintf(buffer, "%.14g",totalcalculos[i][j]);
+                        fprintf(archivo," & %s",buffer);
+                    }
+                    else
+                    {
+                        fprintf(archivo," &");
+                    }
+                }
+                fprintf(archivo, "\\\\\n");
             }
             break;
         }
@@ -242,9 +267,21 @@ int i;
             for(i = 0; i < n; i++)
             {
                 fprintf(archivo,"\\hline\n");
-                fprintf(archivo,"%d & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g & %.10g\\\\\n",i,totalcalculos[i][1],totalcalculos[i][2],totalcalculos[i][3],
-                totalcalculos[i][4],totalcalculos[i][5],totalcalculos[i][6],totalcalculos[i][7],totalcalculos[i][8],
-                totalcalculos[i][9],totalcalculos[i][10],totalcalculos[i][11],totalcalculos[i][12]);
+                fprintf(archivo,"%d",i);
+                for(j=1;j<=12;j++)
+                {
+
+                    if(totalcalculos[i][j] != 0)
+                    {
+                        sprintf(buffer, "%.10g",totalcalculos[i][j]);
+                        fprintf(archivo," & %s",buffer);
+                    }
+                    else
+                    {
+                        fprintf(archivo," &");
+                    }
+                }
+                fprintf(archivo, "\\\\\n");
             }
             break;
         }

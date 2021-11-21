@@ -22,8 +22,8 @@ int main(void)
     //playgroundpuntofijo();   
     //playgroundsecante();
     //playgroundnewton();
-    playgroundnewton3b();
-    //playgroundsecante3b();
+    //playgroundnewton3b();
+    playgroundsecante3b();
     return 0;
 }
 
