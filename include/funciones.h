@@ -8,3 +8,5 @@ double derivada_central(double x, double epsilon);
 
 double funcion_dificil(double x);
 double derivada_funcion_dificil(double x);
+
+double funcionnovenogrado(double x);

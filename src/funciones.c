@@ -44,3 +44,9 @@ double derivada_funcion_dificil(double x)
     + 90*cos(2*M_PI*x)*x - 240*M_PI*sin(2*M_PI*x) - 3*cos(2*M_PI*x) - 570*x + 19)/
     (pow((15*x*x - x - 40),2));
 }
+
+double funcionnovenogrado(double x)
+{
+    return (756*pow(x,9) + 2448*pow(x,8)+1605*pow(x,7)-2583*pow(x,6)-4705*pow(x,5)-
+    2069*pow(x,4)+1643*pow(x,3)+1773*pow(x,2)-20*x-300);
+}

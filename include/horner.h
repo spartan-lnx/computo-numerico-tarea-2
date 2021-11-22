@@ -1,0 +1,1 @@
+double metodohorner(int coef[],double x,int n);

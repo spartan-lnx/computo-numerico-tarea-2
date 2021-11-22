@@ -3,6 +3,7 @@
 #include "include/puntofijo.h"
 #include "include/newton.h"
 #include "include/secante.h"
+#include "include/horner.h"
 #include "include/misc.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +15,7 @@ void playgroundsecante(void);
 void playgroundnewton(void);
 void playgroundnewton3b(void);
 void playgroundsecante3b(void);
+void playgroundhorner(void);
 
 
 int main(void)
@@ -23,7 +25,8 @@ int main(void)
     //playgroundsecante();
     //playgroundnewton();
     //playgroundnewton3b();
-    playgroundsecante3b();
+    //playgroundsecante3b();
+    playgroundhorner();
     return 0;
 }
 
@@ -276,4 +279,24 @@ void playgroundsecante3b(void)
         strcpy(nombretablalatex, "");
         strcpy(buffer, "");
     }
+}
+
+void playgroundhorner(void)
+{
+    int k,n=81;
+    double xk,fxk,fxkh;
+    double resultados[n][3];
+    int coef[10] = {756,2448,1605,-2583,-4705,-2069,1643,1773,-20,-300};
+    for(k=0;k<n;k++)
+    {
+        xk = -4 + ((double)k/10);
+        fxk = funcionnovenogrado(xk);
+        fxkh = metodohorner(coef, xk, 10);
+        resultados[k][0] = xk;
+        resultados[k][1] = fxk;
+        resultados[k][2] = fxkh;
+    }
+
+    mostrartablanovenogrado(n,resultados);
+    guardartablanovenogradolatex(n, resultados, "tablahorner.txt");
 }
