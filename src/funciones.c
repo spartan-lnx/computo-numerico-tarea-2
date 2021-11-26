@@ -22,7 +22,7 @@ double derivada_atras(double x, double epsilon)
 
 double derivada_central(double x, double epsilon)
 {
-    return (cosx_minus_x(x + epsilon) - cosx_minus_x(x - epsilon))/2*epsilon;
+    return (cosx_minus_x(x + epsilon) - cosx_minus_x(x - epsilon))/(2*epsilon);
 }
 
 double funcion_dificil(double x)

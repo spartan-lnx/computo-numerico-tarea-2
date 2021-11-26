@@ -22,60 +22,103 @@ int main(void)
 {
     //playgroundbiseccion();
     //playgroundpuntofijo();   
-    //playgroundsecante();
+    playgroundsecante();
     //playgroundnewton();
     //playgroundnewton3b();
     //playgroundsecante3b();
-    playgroundhorner();
+    //playgroundhorner();
     return 0;
 }
 
 
 void playgroundbiseccion(void)
 {
-    double calculos[MAXIT64][4];
+    double calculos[MAXIT100][4];
+    double objetivo = 0.00000000001;
     int n;
 
-    n = metodobiseccion(ALPHA1, ALPHA2, OBJETIVO, FUNCIONFACIL, calculos, MAXIT64);
-
+    n = metodobiseccion(ALPHA1, ALPHA2, objetivo, FUNCIONFACIL, calculos, MAXIT100);
     mostrartablabiseccion(calculos, n, 11);
-    guardartablabiseccionlatex(calculos, n, 11, "pruebabiseccion.txt");
+    guardartablabiseccionlatex(calculos, n, 11, "biseccionalpha1alpha2.txt");
+
+    n = metodobiseccion(ALPHA1, ALPHA3, objetivo, FUNCIONFACIL, calculos, MAXIT100);
+    mostrartablabiseccion(calculos, n, 11);
+    guardartablabiseccionlatex(calculos, n, 11, "biseccionalpha1alpha3.txt");
 }
 
 void playgroundpuntofijo(void)
 {
-    double calculos[MAXIT64][2];
+    double calculos[MAXIT100][2];
+    double objetivo = 0.00000000001;
     int n;
 
-    n = metodopuntofijo(ALPHA1, OBJETIVO, calculos, MAXIT64);
+    n = metodopuntofijo(ALPHA1, objetivo, calculos, MAXIT100);
     mostrartablapuntofijo(calculos, n,11);
-    guardartablapuntofijolatex(calculos, n, 11, "pruebapuntofijo.txt");
+    guardartablapuntofijolatex(calculos, n, 11, "puntofijoalpha1.txt");
+
+    n = metodopuntofijo(ALPHA2, objetivo, calculos, MAXIT100);
+    mostrartablapuntofijo(calculos, n,11);
+    guardartablapuntofijolatex(calculos, n, 11, "puntofijoalpha2.txt");
+
+    n = metodopuntofijo(ALPHA3, objetivo, calculos, MAXIT100);
+    mostrartablapuntofijo(calculos, n,11);
+    guardartablapuntofijolatex(calculos, n, 11, "puntofijoalpha3.txt");
 }
 
 void playgroundsecante(void)
 {
-    double calculos[MAXIT64][3];
+    double calculos[MAXIT100][3];
+    double objetivo = 0.0000000000001;
     int n;
 
-    n = metodosecante(ALPHA1,ALPHA2,OBJETIVO,calculos,MAXIT64);
+    n = metodosecante(ALPHA2,ALPHA3,objetivo,calculos,MAXIT100);
     mostrartablasecante(calculos, n, 13);
     guardartablasecantelatex(calculos,n,13,"pruebasecante.txt");
 }
 
 void playgroundnewton(void)
 {
-    double calculos[MAXIT64][2];
+    double calculos[MAXIT100][2];
+    double objetivo = 0.0000000000001;
     int n;
 
-    n = metodonewton(calculos, ALPHA2, OBJETIVO, EXACTA, EPSILON1, MAXIT64);
-    mostrartablanewton(calculos, n, 13);
-    guardartablanewtonlatex(calculos, n, 13, "pruebanewton.txt");
+    //n = metodonewton(calculos, ALPHA1, objetivo, EXACTA, EPSILON1, 600);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha1.txt"); //no converge por errores de redondeo
+
+    //n = metodonewton(calculos, ALPHA2, objetivo, EXACTA, EPSILON1, 600);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha2.txt");
+
+    //n = metodonewton(calculos, ALPHA3, objetivo, EXACTA, EPSILON1, 600);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha3.txt");
+
+    //n = metodonewton(calculos, ALPHA1, objetivo, ADELANTE, EPSILON1, MAXIT100);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha1epsilon1.txt");
+
+    //n = metodonewton(calculos, ALPHA2, objetivo, ADELANTE, EPSILON1, MAXIT100);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha2epsilon1.txt");
+
+    //n = metodonewton(calculos, ALPHA3, objetivo, ADELANTE, EPSILON1, MAXIT100);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha3epsilon1.txt");
+
+    //n = metodonewton(calculos, ALPHA1, objetivo, ADELANTE, EPSILON1, MAXIT100);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha3epsilon1.txt");
+
+    //n = metodonewton(calculos, ALPHA3, objetivo, CENTRAL, EPSILON1, 160);
+    //mostrartablanewton(calculos, n, 13);
+    //guardartablanewtonlatex(calculos, n, 13, "dshjgadykugasdu1.txt");
 }
 
 void playgroundnewton3b(void)
 {
     int variante = EXACTAFUNCIONDIFICIL;
-    int maxit = MAXIT64;
+    int maxit = MAXIT100;
     double objetivo = OBJETIVO;
     int i,j,nbeta,ngamma,nalpha,nb;
 
@@ -168,7 +211,7 @@ void playgroundnewton3b(void)
 
 void playgroundsecante3b(void)
 {
-    int maxit = MAXIT64;
+    int maxit = MAXIT100;
     double objetivo = OBJETIVO;
     int i,j,nbetagamma,nbetaalpha,nalphagamma,nbetab,nbgamma;
 
@@ -296,6 +339,7 @@ void playgroundhorner(void)
         resultados[k][1] = fxk;
         resultados[k][2] = fxkh;
     }
+
 
     mostrartablanovenogrado(n,resultados);
     guardartablanovenogradolatex(n, resultados, "tablahorner.txt");

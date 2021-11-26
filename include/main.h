@@ -13,9 +13,10 @@
 #define EXACTAFUNCIONDIFICIL 7
 
 #define MAXIT64 64
+#define MAXIT100 100
 
 #define ALPHA1 -0.75
-#define ALPHA2 1.75
+#define ALPHA2 1.25
 #define ALPHA3 3.15
 
 #define OBJETIVO 0.0001
