@@ -86,7 +86,7 @@ void guardartablamullerlatex(int n, double calculos[][4], int cifras_significati
         {
             for(i = 0; i < n; i++)
             {
-                printf("%d & %.13g & %.13g & %.13g & %.13g\\\\\n",i,calculos[i][0],calculos[i][1],
+                fprintf(archivo,"%d & %.13g & %.13g & %.13g & %.13g\\\\\n",i,calculos[i][0],calculos[i][1],
                     calculos[i][2],calculos[i][3]);
             }
             break;
@@ -95,7 +95,7 @@ void guardartablamullerlatex(int n, double calculos[][4], int cifras_significati
         {
             for(i = 0; i < n; i++)
             {
-                printf("%d & %.13g & %.13g & %.13g & %.13g\\\\\n",i,calculos[i][0],calculos[i][1],
+                fprintf(archivo,"%d & %.13g & %.13g & %.13g & %.13g\\\\\n",i,calculos[i][0],calculos[i][1],
                     calculos[i][2],calculos[i][3]);
             }
             break;
