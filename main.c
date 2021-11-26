@@ -3,6 +3,7 @@
 #include "include/puntofijo.h"
 #include "include/newton.h"
 #include "include/secante.h"
+#include "include/muller.h"
 #include "include/horner.h"
 #include "include/misc.h"
 #include <stdio.h>
@@ -13,6 +14,8 @@ void playgroundbiseccion(void);
 void playgroundpuntofijo(void);
 void playgroundsecante(void);
 void playgroundnewton(void);
+void playgroundmuller(void);
+void playgroundbiseccion3b(void);
 void playgroundnewton3b(void);
 void playgroundsecante3b(void);
 void playgroundhorner(void);
@@ -20,10 +23,11 @@ void playgroundhorner(void);
 
 int main(void)
 {
-    //playgroundbiseccion();
-    //playgroundpuntofijo();   
-    playgroundsecante();
-    //playgroundnewton();
+    //playgroundbiseccion(); //completado
+    //playgroundpuntofijo(); //completado
+    //playgroundsecante(); //completado
+    //playgroundnewton(); //completado
+    //playgroundbiseccion3b();
     //playgroundnewton3b();
     //playgroundsecante3b();
     //playgroundhorner();
@@ -71,9 +75,17 @@ void playgroundsecante(void)
     double objetivo = 0.0000000000001;
     int n;
 
+    n = metodosecante(ALPHA1,ALPHA2,objetivo,calculos,MAXIT100);
+    mostrartablasecante(calculos, n, 13);
+    guardartablasecantelatex(calculos,n,13,"secantealpha1alpha2.txt");
+
+    n = metodosecante(ALPHA1,ALPHA3,objetivo,calculos,MAXIT100);
+    mostrartablasecante(calculos, n, 13);
+    guardartablasecantelatex(calculos,n,13,"secantealpha1alpha3.txt");
+
     n = metodosecante(ALPHA2,ALPHA3,objetivo,calculos,MAXIT100);
     mostrartablasecante(calculos, n, 13);
-    guardartablasecantelatex(calculos,n,13,"pruebasecante.txt");
+    guardartablasecantelatex(calculos,n,13,"secantealpha2alpha3.txt");
 }
 
 void playgroundnewton(void)
@@ -82,37 +94,163 @@ void playgroundnewton(void)
     double objetivo = 0.0000000000001;
     int n;
 
-    //n = metodonewton(calculos, ALPHA1, objetivo, EXACTA, EPSILON1, 600);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha1.txt"); //no converge por errores de redondeo
+    n = metodonewton(calculos, ALPHA1, objetivo, EXACTA, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha1.txt"); //no converge por errores de redondeo
 
-    //n = metodonewton(calculos, ALPHA2, objetivo, EXACTA, EPSILON1, 600);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha2.txt");
+    n = metodonewton(calculos, ALPHA2, objetivo, EXACTA, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha2.txt");
 
-    //n = metodonewton(calculos, ALPHA3, objetivo, EXACTA, EPSILON1, 600);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha3.txt");
+    n = metodonewton(calculos, ALPHA3, objetivo, EXACTA, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonexactaalpha3.txt");
 
-    //n = metodonewton(calculos, ALPHA1, objetivo, ADELANTE, EPSILON1, MAXIT100);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha1epsilon1.txt");
+    //===============================================================================//
 
-    //n = metodonewton(calculos, ALPHA2, objetivo, ADELANTE, EPSILON1, MAXIT100);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha2epsilon1.txt");
+    n = metodonewton(calculos, ALPHA1, objetivo, ADELANTE, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha1epsilon1.txt");
 
-    //n = metodonewton(calculos, ALPHA3, objetivo, ADELANTE, EPSILON1, MAXIT100);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha3epsilon1.txt");
+    n = metodonewton(calculos, ALPHA1, objetivo, DETRAS, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha1epsilon1.txt");
 
-    //n = metodonewton(calculos, ALPHA1, objetivo, ADELANTE, EPSILON1, MAXIT100);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha3epsilon1.txt");
+    n = metodonewton(calculos, ALPHA1, objetivo, CENTRAL, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha1epsilon1.txt");
 
-    //n = metodonewton(calculos, ALPHA3, objetivo, CENTRAL, EPSILON1, 160);
-    //mostrartablanewton(calculos, n, 13);
-    //guardartablanewtonlatex(calculos, n, 13, "dshjgadykugasdu1.txt");
+    //******************************************************************************//
+
+    n = metodonewton(calculos, ALPHA2, objetivo, ADELANTE, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha2epsilon1.txt");
+
+    n = metodonewton(calculos, ALPHA2, objetivo, DETRAS, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha2epsilon1.txt");
+
+    n = metodonewton(calculos, ALPHA2, objetivo, CENTRAL, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha2epsilon1.txt");
+
+    //******************************************************************************//
+
+    n = metodonewton(calculos, ALPHA3, objetivo, ADELANTE, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha3epsilon1.txt");
+
+    n = metodonewton(calculos, ALPHA3, objetivo, DETRAS, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha3epsilon1.txt");
+
+    n = metodonewton(calculos, ALPHA3, objetivo, CENTRAL, EPSILON1, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha3epsilon1.txt");
+
+    //===============================================================================//
+
+    n = metodonewton(calculos, ALPHA1, objetivo, ADELANTE, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha1epsilon2.txt");
+
+    n = metodonewton(calculos, ALPHA1, objetivo, DETRAS, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha1epsilon2.txt");
+
+    n = metodonewton(calculos, ALPHA1, objetivo, CENTRAL, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha1epsilon2.txt");
+
+    //******************************************************************************//
+
+    n = metodonewton(calculos, ALPHA2, objetivo, ADELANTE, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha2epsilon2.txt");
+
+    n = metodonewton(calculos, ALPHA2, objetivo, DETRAS, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha2epsilon2.txt");
+
+    n = metodonewton(calculos, ALPHA2, objetivo, CENTRAL, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha2epsilon2.txt");
+
+    //******************************************************************************//
+
+    n = metodonewton(calculos, ALPHA3, objetivo, ADELANTE, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha3epsilon2.txt");
+
+    n = metodonewton(calculos, ALPHA3, objetivo, DETRAS, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha3epsilon2.txt");
+
+    n = metodonewton(calculos, ALPHA3, objetivo, CENTRAL, EPSILON2, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha3epsilon2.txt");
+
+    //===============================================================================//
+
+    n = metodonewton(calculos, ALPHA1, objetivo, ADELANTE, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha1epsilon3.txt");
+
+    n = metodonewton(calculos, ALPHA1, objetivo, DETRAS, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha1epsilon3.txt");
+
+    n = metodonewton(calculos, ALPHA1, objetivo, CENTRAL, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha1epsilon3.txt");
+
+    //******************************************************************************//
+
+    n = metodonewton(calculos, ALPHA2, objetivo, ADELANTE, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha2epsilon3.txt");
+
+    n = metodonewton(calculos, ALPHA2, objetivo, DETRAS, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha2epsilon3.txt");
+
+    n = metodonewton(calculos, ALPHA2, objetivo, CENTRAL, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha2epsilon3.txt");
+
+    //******************************************************************************//
+
+    n = metodonewton(calculos, ALPHA3, objetivo, ADELANTE, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtonadelantealpha3epsilon3.txt");
+
+    n = metodonewton(calculos, ALPHA3, objetivo, DETRAS, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtondetrasalpha3epsilon3.txt");
+
+    n = metodonewton(calculos, ALPHA3, objetivo, CENTRAL, EPSILON3, MAXIT100);
+    mostrartablanewton(calculos, n, 13);
+    guardartablanewtonlatex(calculos, n, 13, "newtoncentralalpha3epsilon3.txt");
+}
+
+void playgroundmuller(void)
+{
+    int n;
+    double calculos [100][4];
+    n = metodomuller(calculos,-3,-2.2,-2,0.00001,100);
+    mostrartablamuller(n, calculos, 13);
+    guardartablamullerlatex(n, calculos, 13, "mullerbeta1alpha1gamma1.tex");
+}
+
+void playgroundbiseccion3b(void)
+{
+    double calculos[MAXIT100][4];
+    double objetivo = 0.00001;
+    int n;
+
+    n = metodobiseccion(ALPHA1, ALPHA2, objetivo, FUNCIONFACIL, calculos, MAXIT100);
+    mostrartablabiseccion(calculos, n, 11);
+    guardartablabiseccionlatex(calculos, n, 11, "biseccionalpha1alpha2.txt");
 }
 
 void playgroundnewton3b(void)

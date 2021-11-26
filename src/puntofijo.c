@@ -60,7 +60,7 @@ void guardartablapuntofijolatex(double calculos[][2], int n, int cifras_signific
         {
             for(i = 0; i < n; i++)
             {
-                fprintf(archivo,"%d\t%.11g\t%.11g\\\\\n",i,calculos[i][0],calculos[i][1]);
+                fprintf(archivo,"%d & %.11g & %.11g\\\\\n",i,calculos[i][0],calculos[i][1]);
             }   
             break;
         }
@@ -68,7 +68,7 @@ void guardartablapuntofijolatex(double calculos[][2], int n, int cifras_signific
         {
             for(i = 0; i < n; i++)
             {
-                fprintf(archivo,"%d\t%.10g\t%.10g\\\\\n",i,calculos[i][0],calculos[i][1]);
+                fprintf(archivo,"%d & %.10g & %.10g\\\\\n",i,calculos[i][0],calculos[i][1]);
             }
             break;
         }

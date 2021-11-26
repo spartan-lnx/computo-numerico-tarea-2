@@ -139,20 +139,26 @@ void guardartablabiseccionlatex(double calculos[][4],int n,int cifras_significat
 
     for (i=0; i < n; i++) 
     {
-        if(cifras_significativas == 11)
+        switch (cifras_significativas) 
         {
-            fprintf(archivo,"%d & %.11g & %.11g & %.11g & %.11g\\\\\n",i,calculos[i][0],calculos[i][1],calculos[i][2],
+            case 11:
+            {
+                fprintf(archivo,"%d & %.11g & %.11g & %.11g & %.11g\\\\\n",i,calculos[i][0],calculos[i][1],calculos[i][2],
                 calculos[i][3]);
-        }
-        if(cifras_significativas == 5)
-        {
-            fprintf(archivo,"%d & %.5g & %.5g & %.5g & %.5g\\\\\n",i,calculos[i][0],calculos[i][1],calculos[i][2],
+                break;
+            }
+            case 5:
+            {
+                fprintf(archivo,"%d & %.5g & %.5g & %.5g & %.5g\\\\\n",i,calculos[i][0],calculos[i][1],calculos[i][2],
                 calculos[i][3]);
-        }
-        else 
-        {
-            fprintf(archivo,"%d & %.10g & %.10g & %.10g & %.10g\\\\\n",i,calculos[i][0],calculos[i][1],calculos[i][2],
+                break;
+            }
+            default:
+            {
+                fprintf(archivo,"%d & %.10g & %.10g & %.10g & %.10g\\\\\n",i,calculos[i][0],calculos[i][1],calculos[i][2],
                 calculos[i][3]);
+                break;
+            }
         }
     }
 
