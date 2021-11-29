@@ -18,6 +18,7 @@ void playgroundmuller(void);
 void playgroundbiseccion3b(void);
 void playgroundnewton3b(void);
 void playgroundsecante3b(void);
+void playgroundmuller3b(void);
 void playgroundhorner(void);
 
 
@@ -27,9 +28,9 @@ int main(void)
     //playgroundpuntofijo(); //completado
     //playgroundsecante(); //completado
     //playgroundnewton(); //completado
-    //playgroundbiseccion3b();
-    //playgroundnewton3b();
-    //playgroundsecante3b();
+    //playgroundbiseccion3b(); //completado
+    //playgroundnewton3b(); //completado
+    //playgroundsecante3b(); //completado
     //playgroundhorner();
     return 0;
 }
@@ -242,33 +243,96 @@ void playgroundmuller(void)
     guardartablamullerlatex(n, calculos, 13, "mullerbeta1alpha1gamma1.tex");
 }
 
+void playgroundmuller3b(void)
+{
+    int variante = EXACTAFUNCIONDIFICIL;
+    int maxit = MAXIT100;
+    double objetivo = 0.0000000000001;
+    double calculos_raiz_j[100][18];
+    double calculosBAG [100][4],calculosBbG[100][4],calculosBAb[100][4],calculosAbG[100][4];
+    int i,j,nBAG,nBbG,nBAb,nAbG;
+
+    double beta[5] = {-3,-2,-2,-1,1},gamma[5] = {-2,-1,-1,0,2};
+    double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.7},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
+
+    for(j=0;j<5;j++)
+    {
+        nBAG = metodomuller(calculosBAG,beta[j],alpha[j],gamma[j],objetivo,maxit);
+        nBbG = metodomuller(calculosBbG,beta[j],b[j],gamma[j],objetivo,maxit);
+        nBAb = metodomuller(calculosBAb,beta[j],alpha[j],b[j],objetivo,maxit);
+        nAbG = metodomuller(calculosAbG,alpha[j],b[j],gamma[j],objetivo,maxit);
+
+        for(i=0;i<nBAG;i++)
+        {
+            calculos_raiz_j[i][0] = i;
+            calculos_raiz_j[i][1] = calculosBAG[i][0];
+            calculos_raiz_j[i][2] = calculosBAG[i][1];
+            calculos_raiz_j[i][3] = calculosBAG[i][2];
+            calculos_raiz_j[i][4] = calculosBAG[i][3];
+        }
+
+        for(i=0;i<nBbG;i++)
+        {
+            calculos_raiz_j[i][0] = i;
+            calculos_raiz_j[i][5] = calculosBbG[i][0];
+            calculos_raiz_j[i][6] = calculosBbG[i][1];
+            calculos_raiz_j[i][7] = calculosBbG[i][2];
+            calculos_raiz_j[i][8] = calculosBbG[i][3];
+        }
+
+        for(i=0;i<nBAb;i++)
+        {
+            calculos_raiz_j[i][0] = i;
+            calculos_raiz_j[i][9] = calculosBAb[i][0];
+            calculos_raiz_j[i][10] = calculosBAb[i][1];
+            calculos_raiz_j[i][11] = calculosBAb[i][2];
+            calculos_raiz_j[i][12] = calculosBAb[i][3];
+        }
+
+        for(i=0;i<nAbG;i++)
+        {
+            calculos_raiz_j[i][0] = i;
+            calculos_raiz_j[i][13] = calculosAbG[i][0];
+            calculos_raiz_j[i][14] = calculosAbG[i][1];
+            calculos_raiz_j[i][15] = calculosAbG[i][2];
+            calculos_raiz_j[i][16] = calculosAbG[i][3];
+        }
+    }
+}
+
 void playgroundbiseccion3b(void)
 {
     double calculos[MAXIT100][4];
     double objetivo = 0.00001;
-    int n;
-
-    n = metodobiseccion(ALPHA1, ALPHA2, objetivo, FUNCIONFACIL, calculos, MAXIT100);
-    mostrartablabiseccion(calculos, n, 11);
-    guardartablabiseccionlatex(calculos, n, 11, "biseccionalpha1alpha2.txt");
+    char nombre[30]={"biseccionbetagamma0.txt"};
+    int n[5],i;
+    double beta[5] = {-3,-2,-2,-1,1},gamma[5] = {-2,-1,-1,0,2};
+    double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.7},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
+    for(i=4;i<5;i++)
+    {
+        n[i] = metodobiseccion(beta[i],gamma[i], objetivo, FUNCIONDIFICIL, calculos, MAXIT100);
+        mostrartablabiseccion(calculos, n[i], 11);
+        nombre[18] = i+49;
+        guardartablabiseccionlatex(calculos, n[i], 11, nombre);
+    }
 }
 
 void playgroundnewton3b(void)
 {
     int variante = EXACTAFUNCIONDIFICIL;
     int maxit = MAXIT100;
-    double objetivo = OBJETIVO;
+    double objetivo = 0.0000000000001;
     int i,j,nbeta,ngamma,nalpha,nb;
 
     double beta[5] = {-3,-2,-2,-1,1},gamma[5] = {-2,-1,-1,0,2};
-    double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.76},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
+    double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.7},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
 
     double calculosraiz_j[maxit][13];
     double calculosbeta[maxit][2],calculosgamma[maxit][2],calculosalpha[maxit][2];
     double calculosb[maxit][2];
 
-    char nombretabla[90];
-    char nombretablalatex[90];
+    char nombretabla[90]={"megatablanewton0.txt"};
+    char nombretablalatex[90]={"megatablalatexnewton0.txt"};
     char buffer[20];
 
     for(j=0;j<5;j++)
@@ -329,39 +393,28 @@ void playgroundnewton3b(void)
         {
             rellenarcerostabla(calculosraiz_j,i,maxit,10,11,12);
         }
-        
-        sprintf(buffer,"%d",j+1);
-        strcat(nombretabla, "megatabla");
-        strcat(nombretabla, buffer);
-        strcat(nombretablalatex, nombretabla);
-        strcat(nombretabla, ".txt");
-        strcat(nombretablalatex, "latex");
-        strcat(nombretablalatex, ".txt");
-
+        nombretabla[15] = j+49;
+        nombretablalatex[20] = j+49;
         guardarmegatablanewton(calculosraiz_j, maxit, 14,nombretabla);
         guardarmegatablanewtonlatex(calculosraiz_j, maxit, 14,nombretablalatex);
-
-        strcpy(nombretabla, "");
-        strcpy(nombretablalatex, "");
-        strcpy(buffer, "");
     }
 }
 
 void playgroundsecante3b(void)
 {
     int maxit = MAXIT100;
-    double objetivo = OBJETIVO;
+    double objetivo = 0.000000000000000001;
     int i,j,nbetagamma,nbetaalpha,nalphagamma,nbetab,nbgamma;
 
     double beta[5] = {-3,-2,-2,-1,1},gamma[5] = {-2,-1,-1,0,2};
-    double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.76},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
+    double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.7},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
 
     double calculosraiz_j[maxit][16];
     double calculosbetagamma[maxit][3],calculosbetaalpha[maxit][3],calculosalphagamma[maxit][3];
     double calculosbetab[maxit][3],calculosbgamma[maxit][3];
 
-    char nombretabla[90];
-    char nombretablalatex[90];
+    char nombretabla[90]={"megatablasecante0.txt"};
+    char nombretablalatex[90]={"megatablalatexsecante0.txt"};
     char buffer[20];
 
     for(j=0;j<5;j++)
@@ -445,20 +498,10 @@ void playgroundsecante3b(void)
             rellenarcerostablasecante(calculosraiz_j,i,maxit,13,14,15);
         }
 
-        sprintf(buffer,"%d",j+1);
-        strcat(nombretabla, "megatabla");
-        strcat(nombretabla, buffer);
-        strcat(nombretablalatex, nombretabla);
-        strcat(nombretabla, ".txt");
-        strcat(nombretablalatex, "latex");
-        strcat(nombretablalatex, ".txt");
-
+        nombretabla[16] = j+49;
+        nombretablalatex[21]=j+49;
         guardarmegatablasecante(calculosraiz_j, maxit, 14, nombretabla);
         guardarmegatablasecantelatex(calculosraiz_j, maxit, 14, nombretablalatex);
-
-        strcpy(nombretabla, "");
-        strcpy(nombretablalatex, "");
-        strcpy(buffer, "");
     }
 }
 
