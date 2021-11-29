@@ -15,7 +15,7 @@ void rellenarcerostabla(double totalcalculos[][13],int i,int maxit,int l,int m,i
     }
 }
 
-void rellenarcerostablamuller(double totalcalculos[][17],int i,int maxit,int l,int m,int n)
+void rellenarcerostablamuller(double totalcalculos[][17],int i,int maxit,int l,int m,int n,int o)
 {
     int j;
     for(j=i;j<maxit;j++)
@@ -23,7 +23,8 @@ void rellenarcerostablamuller(double totalcalculos[][17],int i,int maxit,int l,i
         totalcalculos[j][0] = j;
         totalcalculos[j][l] = 0;
         totalcalculos[j][m] = 0;
-        totalcalculos[j][n] = 0; //cuidado con el ultimo
+        totalcalculos[j][n] = 0;
+        totalcalculos[j][o] = 0;
     }
 }
 

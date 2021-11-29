@@ -31,6 +31,7 @@ int main(void)
     //playgroundbiseccion3b(); //completado
     //playgroundnewton3b(); //completado
     //playgroundsecante3b(); //completado
+    playgroundmuller3b();
     //playgroundhorner();
     return 0;
 }
@@ -248,10 +249,11 @@ void playgroundmuller3b(void)
     int variante = EXACTAFUNCIONDIFICIL;
     int maxit = MAXIT100;
     double objetivo = 0.0000000000001;
-    double calculos_raiz_j[100][18];
+    double calculos_raiz_j[100][17];
     double calculosBAG [100][4],calculosBbG[100][4],calculosBAb[100][4],calculosAbG[100][4];
     int i,j,nBAG,nBbG,nBAb,nAbG;
-
+    char nombre[90] = {"megatablamuller0.txt"};
+    char nombrelatex[90] = {"megatablamullerlatex0.txt"};
     double beta[5] = {-3,-2,-2,-1,1},gamma[5] = {-2,-1,-1,0,2};
     double alpha[5] = {-2.2,-1.6,-1.4,-0.76,1.7},b[5] = {-2.25,-1.65,-1.45,-0.81,1.65};
 
@@ -271,6 +273,11 @@ void playgroundmuller3b(void)
             calculos_raiz_j[i][4] = calculosBAG[i][3];
         }
 
+        if(i < maxit)
+        {
+            rellenarcerostablamuller(calculos_raiz_j,i,maxit,1,2,3,4);
+        }
+
         for(i=0;i<nBbG;i++)
         {
             calculos_raiz_j[i][0] = i;
@@ -278,6 +285,11 @@ void playgroundmuller3b(void)
             calculos_raiz_j[i][6] = calculosBbG[i][1];
             calculos_raiz_j[i][7] = calculosBbG[i][2];
             calculos_raiz_j[i][8] = calculosBbG[i][3];
+        }
+
+        if(i < maxit)
+        {
+            rellenarcerostablamuller(calculos_raiz_j,i,maxit,5,6,7,8);
         }
 
         for(i=0;i<nBAb;i++)
@@ -289,6 +301,11 @@ void playgroundmuller3b(void)
             calculos_raiz_j[i][12] = calculosBAb[i][3];
         }
 
+        if(i < maxit)
+        {
+            rellenarcerostablamuller(calculos_raiz_j,i,maxit,9,10,11,12);
+        }
+
         for(i=0;i<nAbG;i++)
         {
             calculos_raiz_j[i][0] = i;
@@ -297,6 +314,16 @@ void playgroundmuller3b(void)
             calculos_raiz_j[i][15] = calculosAbG[i][2];
             calculos_raiz_j[i][16] = calculosAbG[i][3];
         }
+
+        if(i < maxit)
+        {
+            rellenarcerostablamuller(calculos_raiz_j,i,maxit,13,14,15,16);
+        }
+
+        nombre[15] = j+49;
+        nombrelatex[20] = j+49;
+        guardarmegatablamuller(calculos_raiz_j,maxit,14,nombre);
+        guardarmegatablamullerlatex(calculos_raiz_j,maxit,14,nombrelatex);
     }
 }
 

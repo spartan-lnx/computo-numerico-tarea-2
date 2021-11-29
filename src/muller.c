@@ -6,7 +6,7 @@ int metodomuller(double calculos[][4], double x0, double x1, double x2, double o
 {
     double a,b,c,fx0,fx1,fx2,ddx2x1,ddx2x0;
     double disc;
-    int i;
+    int i=0;
     
     do {
         fx0 = funcion_dificil(x0);
@@ -143,5 +143,48 @@ void guardarmegatablamuller(double totalcalculos[][17], int n, int cifras_signif
             break;  
         }
     }
+    fclose(archivo);
+}
+
+void guardarmegatablamullerlatex(double totalcalculos[][17], int n, int cifras_significativas, char nombre[])
+{
+    int i,j;
+    char buffer[30];
+    FILE* archivo = fopen(nombre, "w+");
+    fprintf(archivo, "\\newgeometry{left=2 mm,top=2 mm,right=2 mm, bottom= 2 mm}\n");
+    fprintf(archivo, "\\begin{sidewaysfigure}\n");
+    fprintf(archivo, "\\begin{center}\n");
+    fprintf(archivo,"\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\n");
+    fprintf(archivo,"\\hline\n");
+    fprintf(archivo,"&  \\multicolumn{16}{|c|}{Condición Inicial}\\\\\n");
+    fprintf(archivo,"\\hline\n");
+    fprintf(archivo, "& \\multicolumn{4}{|c|}{$x_0 = \\beta_j, x_1 = \\alpha_j, x_2=\\gamma_j$} & \\multicolumn{4}{|c|}{$x_0 = \\beta_j, x_1 = b_j, x_2=\\gamma_j$} & \\multicolumn{4}{|c|}{$x_0 = \\beta_j, x_1 = \\alpha_j, x_2=b_j$} & \\multicolumn{4}{|c|}{$x_0 = \\alpha_j, x_1 = b_j, x_2=\\gamma_j$}\\\\\n");
+    fprintf(archivo,"\\hline\n");
+    fprintf(archivo,"Iteración & $x_{i-2}$ & $x_{i-1}$ & $x_i$ & $f(x_i)$ & $x_{i-2}$ & $x_{i-1}$ & $x_i$ & $f(x_i)$ & $x_{i-2}$ & $x_{i-1}$ & $x_i$ & $f(x_i)$ & $x_{i-2}$ & $x_{i-1}$ & $x_i$ & $f(x_i)$ \\\\\n");
+    for(i = 0; i < n; i++)
+    {
+        fprintf(archivo,"\\hline\n");
+        fprintf(archivo,"%d",i);
+        for(j=1;j<=16;j++)
+        {
+            if(totalcalculos[i][j] != 0)
+            {
+                sprintf(buffer, "%.14g",totalcalculos[i][j]);
+                fprintf(archivo," & %s",buffer);
+            }
+            else
+            {
+                fprintf(archivo," &");
+            }
+        }
+        fprintf(archivo, "\\\\\n");
+    }
+    fprintf(archivo,"\\hline\n");
+    fprintf(archivo,"\\end{tabular}\n");
+    fprintf(archivo,"\\caption{Metodo Muller, raiz %c}\n",nombre[20]);
+    fprintf(archivo,"\\end{center}\n");
+    fprintf(archivo,"\\end{sidewaysfigure}\n");
+    fprintf(archivo,"\\clearpage\n");
+    fprintf(archivo,"\\restoregeometry\n");
     fclose(archivo);
 }
