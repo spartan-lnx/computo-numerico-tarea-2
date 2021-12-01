@@ -20,6 +20,7 @@ void playgroundnewton3b(void);
 void playgroundsecante3b(void);
 void playgroundmuller3b(void);
 void playgroundhorner(void);
+void playgroundejercicio4(void);
 
 
 int main(void)
@@ -31,8 +32,9 @@ int main(void)
     //playgroundbiseccion3b(); //completado
     //playgroundnewton3b(); //completado
     //playgroundsecante3b(); //completado
-    playgroundmuller3b();
-    //playgroundhorner();
+    //playgroundmuller3b(); //completado
+    //playgroundhorner(); //completado
+    playgroundejercicio4();
     return 0;
 }
 
@@ -551,4 +553,315 @@ void playgroundhorner(void)
 
     mostrartablanovenogrado(n,resultados);
     guardartablanovenogradolatex(n, resultados, "tablahorner.txt");
+}
+
+void playgroundejercicio4(void)
+{
+    int coeforig[10] = {756,2448,1605,-2583,-4705,-2069,1643,1773,-20,-300};
+    int coefderiv[9] = {6804,19584,11235,-15498,-23525,-8276,4929,3546,-20};
+    double fx, fxprime,x,objetivo = 0.000000000001;;
+    int i=0, maxit = 100;
+    double calculos[100][2];
+     
+    x = 0.9; //dentro de R1 0.6180339887499 //listo
+    //x = -0.9; //dentro de R1 -0.83333336013785 //listo //listo x 2 porque es doble :)
+    //x = 3.11; //dentro de R2 1.1547005383793 //listo
+    //x = -3.11; //dentro de R2 -1.6180339887499 //listo :))
+    //x = -1.15; //dentro de R2 -1.1547005383793 //listo
+    //x = 0.45; //dentro de R1 0.42857142857143 //listo
+    //x = 1.15; //dentro de R2 1.1547005383793 :(
+    //x = 7.22;
+
+// 1.1547005383793
+// 0.6180339887499
+// 0.42857142857143
+// -0.83333336013785 //doble
+// -1.6180339887499
+// -1.1547005383793
+
+
+    do{
+        fx = metodohorner(coeforig,x,10);
+        fxprime = metodohorner(coefderiv,x,9);
+        actualizartablanewton(calculos, i++, x, fx);
+        x = x - (fx/fxprime);
+    }while(fabs(fx) > objetivo && i < maxit);
+    mostrartablanewton(calculos,i,14);
+    
+    double qn[10];
+    
+    //desinflando el polinomio por pimera vez
+    qn[0] = (double)coeforig[0];
+    for(i=1;i<=8;i++)
+    {
+        qn[i] = (double)coeforig[i] + qn[i-1]*x;
+    }
+
+    printf("\nmostrando el nuevo polinomio desinflado\n");
+    for(i=0;i<9;i++)
+    {
+        printf("%fx^%d ",qn[i],8-i);
+    }
+    printf("\n");
+
+    double qnp[10];
+
+    //derivando el polinomio desinflado
+    for(i=0;i<8;i++)
+    {
+        qnp[i] = qn[i]*(8-i);
+        //printf("%.14gx^%d ",qn[i]*(8-i),8-i-1);
+    }
+
+    printf("\nimprimiendo la derivada del polinomio desinflado\n");
+    for(i=0;i<8;i++)
+    {
+        printf("%fx^%d ",qnp[i],7-i);
+    }
+    printf("\n");
+
+    x = 7.2;
+    i=0;
+    double calculos2[100][2];
+    do{
+        fx = metodohornerdouble(qn,x,9);
+        fxprime = metodohornerdouble(qnp,x,8);
+        actualizartablanewton(calculos2, i++, x, fx);
+        x = x - (fx/fxprime);
+    }while(fabs(fx) > objetivo && i < maxit);
+
+    double qn2[10],qnp2[10];
+
+    //desinflando el polinomio por segunda vez
+    qn2[0] = qn[0];
+    for(i=1;i<=7;i++)
+    {
+        qn2[i] = qn[i] + qn2[i-1]*x;
+    }
+
+    //derivada de ese nuevo polinomio
+    for(i=0;i<7;i++)
+    {
+        qnp2[i] = qn2[i]*(7-i);
+        //printf("%.14gx^%d ",qn[i]*(8-i),8-i-1);
+    }
+
+    printf("\nmostrando el nuevo polimomio\n");
+    for(i=0;i<8;i++)
+    {
+        printf("%fx^%d ",qn2[i],7-i);
+    }
+    printf("\n");
+
+    printf("\nimprimiendo la derivada del polinomio desinflado\n");
+    for(i=0;i<7;i++)
+    {
+        printf("%fx^%d ",qnp2[i],6-i);
+    }
+    printf("\n");
+
+    x = 7.2;
+    i=0;
+    double calculos3[100][2];
+    do{
+        fx = metodohornerdouble(qn2,x,8);
+        fxprime = metodohornerdouble(qnp2,x,7);
+        actualizartablanewton(calculos3, i++, x, fx);
+        x = x - (fx/fxprime);
+    }while(fabs(fx) > objetivo && i < maxit*4);
+    
+    //////////////////////////////////////////////////////////////////////
+    double qn3[10],qnp3[10];
+
+    //desinflando el polinomio por tercera vez
+    qn3[0] = qn2[0];
+    for(i=1;i<=6;i++)
+    {
+        qn3[i] = qn2[i] + qn3[i-1]*x;
+    }
+
+    //derivada de ese nuevo polinomio
+    for(i=0;i<6;i++)
+    {
+        qnp3[i] = qn3[i]*(6-i);
+        //printf("%.14gx^%d ",qn[i]*(8-i),8-i-1);
+    }
+
+    printf("\nmostrando el nuevo polimomio\n");
+    for(i=0;i<7;i++)
+    {
+        printf("%fx^%d ",qn3[i],6-i);
+    }
+    printf("\n");
+
+    printf("\nimprimiendo la derivada del polinomio desinflado\n");
+    for(i=0;i<6;i++)
+    {
+        printf("%fx^%d ",qnp3[i],5-i);
+    }
+    printf("\n");
+
+    x = 7.2;
+    i=0;
+    double calculos4[100][2];
+    do{
+        fx = metodohornerdouble(qn3,x,7);
+        fxprime = metodohornerdouble(qnp3,x,6);
+        actualizartablanewton(calculos4, i++, x, fx);
+        x = x - (fx/fxprime);
+    }while(fabs(fx) > objetivo && i < maxit);
+
+//////////////////////////////////////////////////////////////////////
+    double qn4[10],qnp4[10];
+
+    //desinflando el polinomio por tercera vez
+    qn4[0] = qn3[0];
+    for(i=1;i<=5;i++)
+    {
+        qn4[i] = qn3[i] + qn4[i-1]*x;
+    }
+
+    //derivada de ese nuevo polinomio
+    for(i=0;i<5;i++)
+    {
+        qnp4[i] = qn4[i]*(5-i);
+        //printf("%.14gx^%d ",qn[i]*(8-i),8-i-1);
+    }
+
+    printf("\nmostrando el nuevo polimomio\n");
+    for(i=0;i<6;i++)
+    {
+        printf("%fx^%d ",qn4[i],5-i);
+    }
+    printf("\n");
+
+    printf("\nimprimiendo la derivada del polinomio desinflado\n");
+    for(i=0;i<5;i++)
+    {
+        printf("%fx^%d ",qnp4[i],4-i);
+    }
+    printf("\n");
+
+    x = 7.2;
+    i=0;
+    double calculos5[100][2];
+    do{
+        fx = metodohornerdouble(qn4,x,6);
+        fxprime = metodohornerdouble(qnp4,x,5);
+        actualizartablanewton(calculos5, i++, x, fx);
+        x = x - (fx/fxprime);
+    }while(fabs(fx) > objetivo && i < maxit);
+
+
+//////////////////////////////////////////////////////////////////////
+    double qn5[10],qnp5[10];
+
+    //desinflando el polinomio por tercera vez
+    qn5[0] = qn4[0];
+    for(i=1;i<=4;i++)
+    {
+        qn5[i] = qn4[i] + qn5[i-1]*x;
+    }
+
+    //derivada de ese nuevo polinomio
+    for(i=0;i<4;i++)
+    {
+        qnp5[i] = qn5[i]*(4-i);
+        //printf("%.14gx^%d ",qn[i]*(8-i),8-i-1);
+    }
+
+    printf("\nmostrando el nuevo polimomio\n");
+    for(i=0;i<5;i++)
+    {
+        printf("%fx^%d ",qn5[i],4-i);
+    }
+    printf("\n");
+
+    printf("\nimprimiendo la derivada del polinomio desinflado\n");
+    for(i=0;i<4;i++)
+    {
+        printf("%fx^%d ",qnp5[i],3-i);
+    }
+    printf("\n");
+
+    x = 7.2;
+    i=0;
+    double calculos6[100][2];
+    do{
+        fx = metodohornerdouble(qn5,x,5);
+        fxprime = metodohornerdouble(qnp5,x,4);
+        actualizartablanewton(calculos6, i++, x, fx);
+        x = x - (fx/fxprime);
+    }while(fabs(fx) > objetivo && i < maxit);
+
+//////////////////////////////////////////////////////////////////////
+    double qn6[10],qnp6[10];
+
+    //desinflando el polinomio por tercera vez
+    qn6[0] = qn5[0];
+    for(i=1;i<=3;i++)
+    {
+        qn6[i] = qn5[i] + qn6[i-1]*x;
+    }
+
+    //derivada de ese nuevo polinomio
+    for(i=0;i<3;i++)
+    {
+        qnp6[i] = qn6[i]*(3-i);
+        //printf("%.14gx^%d ",qn[i]*(8-i),8-i-1);
+    }
+
+    printf("\nmostrando el nuevo polimomio\n");
+    for(i=0;i<4;i++)
+    {
+        printf("%fx^%d ",qn6[i],3-i);
+    }
+    printf("\n");
+
+    printf("\nimprimiendo la derivada del polinomio desinflado\n");
+    for(i=0;i<3;i++)
+    {
+        printf("%fx^%d ",qnp6[i],2-i);
+    }
+    printf("\n");
+
+    x = 7.2;
+    i=0;
+    double calculos7[100][2];
+    do{
+        fx = metodohornerdouble(qn6,x,4);
+        fxprime = metodohornerdouble(qnp6,x,3);
+        actualizartablanewton(calculos7, i++, x, fx);
+        x = x - (fx/fxprime);
+    }while(fabs(fx) > objetivo && i < maxit);
+
+//////////////////////////////////////////////////////////////////////
+    double qn7[10];
+
+    //desinflando el polinomio
+    qn7[0] = qn6[0];
+    for(i=1;i<=2;i++)
+    {
+        qn7[i] = qn6[i] + qn7[i-1]*x;
+    }
+    
+
+    printf("\nmostrando el nuevo polimomio\n");
+    for(i=0;i<3;i++)
+    {
+        printf("%fx^%d ",qn6[i],2-i);
+    }
+    printf("\n");
+
+    printf("%f\n",qn7[1]*qn7[1] -4*qn7[0]*qn7[2]);
+
+    double disc = qn7[1]*qn7[1] -4*qn7[0]*qn7[2];
+    disc *=-1;
+    printf("%f\n",sqrt(disc));
+    printf("%f\n",2*qn7[0]);
+    
+    //mostrartablanewton(calculos7,i,14);
+    //guardartablanewtonlatex(calculos7,i,14,"raiz7.txt");
+    //printf("x = %f, f(x) = %f\n",x,metodohornerdouble(qn,x,9));
+
 }
