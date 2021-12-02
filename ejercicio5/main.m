@@ -17,7 +17,7 @@ raiz3 = complex(-0.5,(sqrt(3))/2);
 
 tamPaso = L/n;
 objetivo = 0.0000000001; % multiples objetivos: 10^-6, 10^-8, 10^-10,10^-12,10^-14
-maxit = 32; % multiples maxit: 16, 8, 16, 32, 64, 128, 256, 512
+maxit = 64; % multiples maxit: 16, 8, 16, 32, 64, 128, 256, 512
 
 [C,I] = pintarx(funcion, derivadafun, objetivo,maxit,negRe,posRe,negIm,posIm,tamPaso,raiz1, raiz2, raiz3);
 
