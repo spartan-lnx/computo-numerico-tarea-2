@@ -20,13 +20,13 @@ for b = [negIm:+tamPaso:posIm]
         %con mi sulucion chafa, a partir de 40 es blanco, menos de 30 es negro
         %con mi sulucion chafa, a partir de 40 es blanco, menos de 30 es negro
         if abs(raiz - raiz1) <= objetivo
-            color = 20; %encontro la raiz 1
+            color = 13+n; %encontro la raiz 1
         elseif abs(raiz - raiz2) <= objetivo
-            color = 40; %encontro la raiz 2
+            color = 150+n; %encontro la raiz 2
         elseif abs(raiz - raiz3) <= objetivo
-            color = 60; %encontro la raiz 3
+            color = 180+n; %encontro la raiz 3
         else
-            color = 1; %no econtro ninguna raiz
+            color = 261; %no econtro ninguna raiz
         end      
         C(k,j)=color; %Codigo de color del x_0: 20 para r1,40 para r2, 60 para r3, 0 si no encontro
     endfor
