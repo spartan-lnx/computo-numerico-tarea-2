@@ -15,9 +15,9 @@ raiz1 = 1;
 raiz2 = complex(-0.5,-(sqrt(3))/2);
 raiz3 = complex(-0.5,(sqrt(3))/2);
 
-tamPaso = 0.01;
-objetivo = 0.000001; % multiples objetivos: 10^-6, 10^-8, 10^-10,10^-12,10^-14
-maxit = 16; % multiples maxit: 16, 8, 16, 32, 64, 128, 256, 512
+tamPaso = 0.1;
+objetivo = 0.0000000001; % multiples objetivos: 10^-6, 10^-8, 10^-10,10^-12,10^-14
+maxit = 32; % multiples maxit: 16, 8, 16, 32, 64, 128, 256, 512
 
 [C,I] = pintarx(funcion, derivadafun, objetivo,maxit,negRe,posRe,negIm,posIm,tamPaso,raiz1, raiz2, raiz3);
 
@@ -25,9 +25,9 @@ maxit = 16; % multiples maxit: 16, 8, 16, 32, 64, 128, 256, 512
 x = [negRe posRe];
 y = [negIm posIm];
 ax = gca;
-
 %load('MyColormaps','mycmap')
-colormap(ax,prism)
+colormap(ax,[1 1 1;1 0 0;0 1 0;0 0 1]);
+%colorgradient([0 0 0;1 0 0;0 1 0;0 0 1]);
 clims = [1 64];
 imagesc(x,y,C,clims)
 colorbar

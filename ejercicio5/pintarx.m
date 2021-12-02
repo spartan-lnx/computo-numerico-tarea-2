@@ -11,11 +11,14 @@ for b = [negIm:+tamPaso:posIm]
         j = j+1;
 
         [raiz,n] = metodonewton(funcion,derivadafun,a+1i*b,objetivo,maxit);
-        printf("x_0 = %d %di procesado\n",a,b);
+        printf("x_0 = %s procesado\n",num2str(complex(a,b)));
 
         l=l+1;
         I(l)=n; %Numero de iteraciones requeridas para ese x_0
         
+        
+        %con mi sulucion chafa, a partir de 40 es blanco, menos de 30 es negro
+        %con mi sulucion chafa, a partir de 40 es blanco, menos de 30 es negro
         if abs(raiz - raiz1) <= objetivo
             color = 20; %encontro la raiz 1
         elseif abs(raiz - raiz2) <= objetivo
@@ -23,8 +26,10 @@ for b = [negIm:+tamPaso:posIm]
         elseif abs(raiz - raiz3) <= objetivo
             color = 60; %encontro la raiz 3
         else
-            color = 0; %no econtro ninguna raiz
+            color = 1; %no econtro ninguna raiz
         end      
         C(k,j)=color; %Codigo de color del x_0: 20 para r1,40 para r2, 60 para r3, 0 si no encontro
-    end
+    endfor
+endfor
+printf("total de raices calculadas: %d\n",l);
 end
